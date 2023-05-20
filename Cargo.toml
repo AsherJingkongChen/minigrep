@@ -1,0 +1,5 @@
+[package]
+name = "minigrep"
+version = "0.0.0"
+edition = "2021"
+authors = ["AsherJingkongChen <https://github.com/AsherJingkongChen>"]
