@@ -2,7 +2,7 @@
 mod config {
   mod run {
     use std::env;
-    use minigrep::Config;
+    use minigrep::*;
 
     #[test]
     fn search_vector_in_rust_book_ch12_04() {
@@ -16,7 +16,7 @@ mod config {
 
       env::set_var("IGNORE_CASE", "0");
 
-      let result = config.run();
+      let result = run(&config);
       assert!(result.is_ok());
       let result = result.unwrap();
       assert_eq!(result, 7);
@@ -34,7 +34,7 @@ mod config {
 
       env::set_var("IGNORE_CASE", "0");
 
-      let result = config.run();
+      let result = run(&config);
       assert!(result.is_ok());
       let result = result.unwrap();
       assert_eq!(result, 13);

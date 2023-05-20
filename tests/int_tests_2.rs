@@ -6,7 +6,7 @@
 mod config {
   mod run {
     use std::env;
-    use minigrep::Config;
+    use minigrep::*;
 
     #[test]
     fn search_error_ignore_case_in_rust_book_ch12_04() {
@@ -21,7 +21,7 @@ mod config {
       env::set_var("IGNORE_CASE", "1");
       assert!(env::var("IGNORE_CASE").is_ok());
 
-      let result = config.run();
+      let result = run(&config);
       assert!(result.is_ok());
       let result = result.unwrap();
       assert_eq!(result, 19);

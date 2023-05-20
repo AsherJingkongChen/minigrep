@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html class="hljs">
+<head>
+<meta charset="utf-8">
+<meta
+  name="description"
+  content="CodeSlide makes a slideshow for code snippets">
+<meta
+  name="viewport"
+  content="width=device-width, initial-scale=1, user-scalable=no">
+<link
+  href="https://fonts.gstatic.com"
+  rel="preconnect" crossorigin>
+<style>
+/*! CodeSlide Presets */
+a {
+  color: dodgerblue;
+}
+blockquote {
+  border-left: currentColor solid medium;
+  margin-inline: 1em;
+  padding-inline: 1em;
+  opacity: 50%;
+}
+body {
+  margin: 0;
+  overflow: hidden;
+}
+code {
+  font-size: 85%;
+  padding-inline: 0.15em;
+}
+html {
+  overflow: hidden;
+}
+img {
+  max-width: 100%;
+}
+li {
+  margin-top: 0.25em;
+}
+p:empty {
+  display: none;
+}
+pre {
+  white-space: pre-wrap;
+  overflow-wrap: break-word;
+}
+pre > code {
+  display: block;
+  padding: 1em;
+}
+video {
+  max-width: 100%;
+}
+:is(h1, h2, h3, h4, h5, h6) > a {
+  text-decoration: none;
+}
+.slide {
+  padding: 1em 2em;
+}
+#slides {
+  line-height: 1.5;
+}
+@media screen {
+  .slide {
+    min-width: calc(100vw - 4em);
+    height: calc(100vh - 2em);
+    height: calc(100dvh - 2em);
+    overflow-y: scroll;
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    scrollbar-width: none;
+  }
+  .slide::-webkit-scrollbar {
+    display: none;
+  }
+  #slides {
+    display: flex;
+    flex-direction: row;
+    overflow-x: scroll;
+    overscroll-behavior: none;
+    scroll-behavior: smooth;
+    scroll-snap-type: x mandatory;
+  }
+}
+@media print {
+  @page {
+    margin: 0;
+  }
+  html {
+    print-color-adjust: exact;
+    -webkit-print-color-adjust: exact;
+  }
+  /* h1, h2, h3, h4, h5, h6 {
+    break-after: avoid-page;
+  } */
+  .slide {
+    break-after: page;
+  }
+}
+
+/* Tomorrow Night Theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+/* Original theme - https://github.com/chriskempson/tomorrow-theme */
+/* http://jmblog.github.com/color-themes-for-google-code-highlightjs */
+
+/* Tomorrow Comment */
+.hljs-comment {
+  color: #969896;
+}
+
+/* Tomorrow Red */
+.hljs-variable,
+.hljs-attribute,
+.hljs-tag,
+.hljs-regexp,
+.ruby .hljs-constant,
+.xml .hljs-tag .hljs-title,
+.xml .hljs-pi,
+.xml .hljs-doctype,
+.html .hljs-doctype,
+.css .hljs-id,
+.css .hljs-class,
+.css .hljs-pseudo {
+  color: #cc6666;
+}
+
+/* Tomorrow Orange */
+.hljs-number,
+.hljs-preprocessor,
+.hljs-pragma,
+.hljs-built_in,
+.hljs-literal,
+.hljs-params,
+.hljs-constant {
+  color: #de935f;
+}
+
+/* Tomorrow Yellow */
+.ruby .hljs-class .hljs-title,
+.css .hljs-rule .hljs-attribute {
+  color: #f0c674;
+}
+
+/* Tomorrow Green */
+.hljs-string,
+.hljs-value,
+.hljs-inheritance,
+.hljs-header,
+.hljs-name,
+.ruby .hljs-symbol,
+.xml .hljs-cdata {
+  color: #b5bd68;
+}
+
+/* Tomorrow Aqua */
+.hljs-title,
+.css .hljs-hexcolor {
+  color: #8abeb7;
+}
+
+/* Tomorrow Blue */
+.hljs-function,
+.python .hljs-decorator,
+.python .hljs-title,
+.ruby .hljs-function .hljs-title,
+.ruby .hljs-title .hljs-keyword,
+.perl .hljs-sub,
+.javascript .hljs-title,
+.coffeescript .hljs-title {
+  color: #81a2be;
+}
+
+/* Tomorrow Purple */
+.hljs-keyword,
+.javascript .hljs-function {
+  color: #b294bb;
+}
+
+.hljs {
+  display: block;
+  overflow-x: auto;
+  background: #1d1f21;
+  color: #c5c8c6;
+}
+
+.coffeescript .javascript,
+.javascript .xml,
+.tex .hljs-formula,
+.xml .javascript,
+.xml .vbscript,
+.xml .css,
+.xml .hljs-cdata {
+  opacity: 0.5;
+}
+
+.hljs-addition {
+  color: #718c00;
+}
+
+.hljs-deletion {
+  color: #c82829;
+}
+
+/*! CodeSlide codeFont at-rule */
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DJKQhM4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DMyQhM4.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Code Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/sourcecodepro/v22/HI_diYsKILxRpg3hIP6sJ7fM7PqPMcMnZFqUwX28DCuXhM4.ttf) format('truetype');
+}
+
+/*! CodeSlide slideFont at-rule */
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/opensans/v35/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0Rk8ZkaVc.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: italic;
+  font-weight: 700;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/opensans/v35/memQYaGs126MiZpBA-UFUIcVXSCEkx2cmqvXlWq8tWZ0Pw86hd0RkyFjaVc.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 400;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsjZ0C4n.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Open Sans';
+  font-style: normal;
+  font-weight: 700;
+  font-stretch: normal;
+  font-display: swap;
+  src: url(https://fonts.gstatic.com/s/opensans/v35/memSYaGs126MiZpBA-UvWbX2vVnXBbObj2OVZyOOSr4dVJWUgsg-1y4n.ttf) format('truetype');
+}
+
+/*! CodeSlide codeFont properties */
+code {
+  font-family: Source Code Pro, ui-monospace, SFMono-Regular, SF Mono, Menlo, Consolas, Liberation Mono, monospace;
+}
+pre > code {
+  font-size: 0.85em;
+  font-weight: normal;
+}
+
+/* CodeSlide slideFont properties */
+#slides {
+  font-family: Open Sans, system-ui;
+  font-size: 1.2rem;
+  font-weight: normal;
+}
+</style></head>
+<body>
+<div id="slides">
+<div class="slide" id="slide_0">
+<h1 id="minigrep">
+  <a class="hljs" href="#minigrep">Minigrep</a>
+</h1>
+<p>The URL of GitHub Repository is <a href="https://github.com/AsherJingkongChen/minigrep.git">here</a></p>
+</div>
+<div class="slide" id="slide_1">
+<h1 id="what-should-we-learn-in-this-project-1">
+  <a class="hljs" href="#what-should-we-learn-in-this-project-1">What should we learn in this project? (1)</a>
+</h1>
+<p>Excerpted from <a href="https://doc.rust-lang.org/book/ch12-00-an-io-project.html">Rust-lang book ch12-00</a>:</p>
+<p>Our grep project will combine a number of concepts you’ve learned so far:</p>
+<ul>
+<li>Organizing code (using what you learned about modules in Chapter 7)</li>
+<li>Using vectors and strings (collections, Chapter 8)</li>
+<li>Handling errors (Chapter 9)</li>
+<li>Using traits and lifetimes where appropriate (Chapter 10)</li>
+<li>Writing tests (Chapter 11)</li>
+</ul>
+</div>
+<div class="slide" id="slide_2">
+<h1 id="what-should-we-learn-in-this-project-2">
+  <a class="hljs" href="#what-should-we-learn-in-this-project-2">What should we learn in this project? (2)</a>
+</h1>
+<p>In conclusion, this project is a recap of some chapters in rust-lang book.</p>
+</div>
+<div class="slide" id="slide_3">
+<p><h1 id="requirements-to-complete-this-project">
+  <a class="hljs" href="#requirements-to-complete-this-project">Requirements to complete this project</a>
+</h1>
+<h2 id="description">
+  <a class="hljs" href="#description">Description</a>
+</h2>
+<p>In the simplest use case, <code>grep</code> searches a specified file for a specified string.
+To do so, <code>grep</code> takes as its arguments a file path and a string.
+Then it reads the file, finds lines in that file that contain the string argument, and prints those lines.</p>
+<h2 id="feature-list">
+  <a class="hljs" href="#feature-list">Feature list</a>
+</h2>
+<ol>
+<li>Takes 2 arguments: a file path and a query string</li>
+<li>Search for all lines in the file containing the query string</li>
+<li>Display those lines</li>
+</ol>
+</p>
+</div>
+<div class="slide" id="slide_4">
+<h1 id="project-layout-1">
+  <a class="hljs" href="#project-layout-1">Project layout (1)</a>
+</h1>
+<p>Cargo builds source codes from <code>src</code>
+and test codes from <code>tests</code>:</p>
+<pre><code>./
+|-- src/
+`-- tests/
+</code></pre>
+</div>
+<div class="slide" id="slide_5">
+<h1 id="project-layout-2">
+  <a class="hljs" href="#project-layout-2">Project layout (2)</a>
+</h1>
+<p>We split the program into a <code>main.rs</code> and a <code>lib.rs</code> <a href="https://doc.rust-lang.org/book/ch12-03-improving-error-handling-and-modularity.html#separation-of-concerns-for-binary-projects">(link)</a>:</p>
+<ul>
+<li><code>main.rs</code> handles running the program</li>
+<li><code>lib.rs</code> handles all the logics</li>
+<li>This structure is easy to write testing codes<ul>
+<li>Treat test codes as several executables like <code>main.rs</code></li>
+</ul>
+</li>
+<li>Check <a href="https://en.wikipedia.org/wiki/Separation_of_concerns">wikipedia</a> (Separation of concerns) if needed</li>
+</ul>
+<pre><code class="language-diff hljs">./
+|-- src/
+<span class="hljs-addition">+   |-- lib.rs</span>
+<span class="hljs-addition">+   `-- main.rs</span>
+`-- tests/
+</code></pre>
+</div>
+<div class="slide" id="slide_6">
+<h1 id="project-layout-3">
+  <a class="hljs" href="#project-layout-3">Project layout (3)</a>
+</h1>
+<p>The features of program in a nutshell: <strong>&quot;Parse arguments, search the string, and display all the lines containing it.&quot;</strong></p>
+<p>We can write 3 modules to complete the tasks:</p>
+<ol>
+<li><code>config.rs</code>: Store the parsed arguments</li>
+<li><code>search.rs</code>: Search the string in lines of the file</li>
+<li><code>run.rs</code>: Do step <code>2</code>. Then display all the lines containing the query string.</li>
+</ol>
+<pre><code class="language-diff hljs">./
+|-- src/
+<span class="hljs-addition">+   |-- config.rs</span>
+|   |-- lib.rs
+|   |-- main.rs
+<span class="hljs-addition">+   |-- run.rs</span>
+<span class="hljs-addition">+   `-- search.rs</span>
+`-- tests/
+</code></pre>
+</div>
+<div class="slide" id="slide_7">
+<h1 id="project-layout-4">
+  <a class="hljs" href="#project-layout-4">Project layout (4)</a>
+</h1>
+<p>To make sure that the program works, we need some testing codes:</p>
+<pre><code class="language-diff hljs">./
+|-- src/
+|   |-- config.rs
+|   |-- lib.rs
+|   |-- main.rs
+|   |-- run.rs
+|   `-- search.rs
+`-- tests/
+<span class="hljs-addition">+   |-- assets/</span>
+<span class="hljs-addition">+   |   `-- rust_book_ch12_04.txt</span>
+<span class="hljs-addition">+   |-- int_tests_1.rs</span>
+<span class="hljs-addition">+   |-- int_tests_2.rs</span>
+<span class="hljs-addition">+   `-- unit_tests.rs</span>
+</code></pre>
+<p>We will use unit tests for parsing and searching, and integration tests for running the program.</p>
+</div>
+<div class="slide" id="slide_8">
+<h1 id="parsing-arguments-1">
+  <a class="hljs" href="#parsing-arguments-1">Parsing arguments (1)</a>
+</h1>
+<h2 id="stdenvargs">
+  <a class="hljs" href="#stdenvargs"><code>std::env::args</code></a>
+</h2>
+<ul>
+<li>Returns an iterator over arguments captured from the command</li>
+</ul>
+<pre><code class="language-rs hljs"><span class="hljs-keyword">let</span> <span class="hljs-variable">args</span>: <span class="hljs-keyword">impl</span> <span class="hljs-title class_">Iterator</span>&lt;Item = <span class="hljs-type">String</span>&gt; = std::env::<span class="hljs-title function_ invoke__">args</span>();
+</code></pre>
+</div>
+<div class="slide" id="slide_9">
+<h1 id="use-the-iterator-1">
+  <a class="hljs" href="#use-the-iterator-1">Use the iterator (1)</a>
+</h1>
+<p>Iterators can be collected into a collection:</p>
+<pre><code class="language-rs hljs">std::env::<span class="hljs-title function_ invoke__">args</span>().collect::&lt;<span class="hljs-type">Vec</span>&lt;<span class="hljs-type">String</span>&gt;&gt;()
+</code></pre>
+<p>What&#39;s bad of it? It <strong>wastes</strong> of memories.</p>
+<p>Consider this, there&#39;s a lot of useless strings (they are ignored though):</p>
+<pre><code class="language-sh hljs">minigrep string file useless_option_1 ... useless_option_100
+</code></pre>
+<p>Or the program may want to exit early when receiving too many arguments:</p>
+<pre><code>&lt;&lt; minigrep string file useless_option_1 ... useless_option_100
+&gt;&gt; Failed to parse:
+&gt;&gt; Too many arguments
+</code></pre>
+</div>
+<div class="slide" id="slide_10">
+<h1 id="use-the-iterator-2">
+  <a class="hljs" href="#use-the-iterator-2">Use the iterator (2)</a>
+</h1>
+<p>We only need 2 arguments: the query string and the file path.</p>
+<p>Consider this:</p>
+<pre><code class="language-sh hljs">minigrep query_string file_path useless_option
+</code></pre>
+<p>The collected vector will be:</p>
+<pre><code class="language-rs hljs">[
+  <span class="hljs-string">&quot;minigrep&quot;</span>,
+  <span class="hljs-string">&quot;query_string&quot;</span>,
+  <span class="hljs-string">&quot;file_path&quot;</span>,
+  <span class="hljs-string">&quot;useless_option&quot;</span>
+]
+</code></pre>
+<p>Let&#39;s capture them:</p>
+<pre><code class="language-rs hljs">args.<span class="hljs-title function_ invoke__">next</span>(); <span class="hljs-comment">// Program name is dropped</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">query_string</span>: <span class="hljs-type">Option</span>&lt;<span class="hljs-type">String</span>&gt; = args.<span class="hljs-title function_ invoke__">next</span>();
+<span class="hljs-keyword">let</span> <span class="hljs-variable">file_path</span>: <span class="hljs-type">Option</span>&lt;<span class="hljs-type">String</span>&gt; = args.<span class="hljs-title function_ invoke__">next</span>();
+</code></pre>
+<p>Iterators are just like flowing somen!:</p>
+<p><img src="https://media.timeout.com/images/105462295/750/422/image.jpg" alt=""></p>
+</div>
+<div class="slide" id="slide_11">
+<h1 id="parsing-arguments-2">
+  <a class="hljs" href="#parsing-arguments-2">Parsing arguments (2)</a>
+</h1>
+<p>Let&#39;s finish parsing arguments!</p>
+<ul>
+<li>The 2 resolved arguments will be stored in an <code>Config</code> object </li>
+<li><code>Option::ok_or</code>: converts <code>Option</code> to <code>Result</code></li>
+</ul>
+<p><code>src/config.rs</code>:
+<pre><code class="language-rs hljs"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">struct</span> <span class="hljs-title class_">Config</span> {
+  <span class="hljs-keyword">pub</span> query_string: <span class="hljs-type">String</span>,
+  <span class="hljs-keyword">pub</span> file_path: <span class="hljs-type">String</span>,
+}
+
+<span class="hljs-keyword">impl</span> <span class="hljs-title class_">Config</span> {
+  <span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">parse</span>(
+    <span class="hljs-keyword">mut</span> args: <span class="hljs-keyword">impl</span> <span class="hljs-title class_">Iterator</span>&lt;Item = <span class="hljs-type">String</span>&gt;,
+  ) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;Config, &amp;<span class="hljs-symbol">&#x27;static</span> <span class="hljs-type">str</span>&gt; {
+    args.<span class="hljs-title function_ invoke__">next</span>().<span class="hljs-title function_ invoke__">ok_or</span>(<span class="hljs-string">&quot;No argument&quot;</span>)?; <span class="hljs-comment">// Program name</span>
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">query_string</span>: <span class="hljs-type">String</span> = args.<span class="hljs-title function_ invoke__">next</span>().<span class="hljs-title function_ invoke__">ok_or</span>(
+      <span class="hljs-string">&quot;Not enough arguments: missing query string&quot;</span>
+    )?;
+    <span class="hljs-comment">// This if let expression is equivalent to Option::ok_or</span>
+    <span class="hljs-keyword">if</span> <span class="hljs-keyword">let</span> <span class="hljs-variable">Some</span>(file_path) = args.<span class="hljs-title function_ invoke__">next</span>() {
+      <span class="hljs-title function_ invoke__">Ok</span>(Config { query_string, file_path })
+    } <span class="hljs-keyword">else</span> {
+      <span class="hljs-title function_ invoke__">Err</span>(<span class="hljs-string">&quot;Not enough arguments: missing file path&quot;</span>)
+    }
+  }
+}
+</code></pre>
+</p>
+</div>
+<div class="slide" id="slide_12">
+<h1 id="lets-recap-from-configparse">
+  <a class="hljs" href="#lets-recap-from-configparse">Let&#39;s recap from <code>Config::parse</code></a>
+</h1>
+<blockquote>
+<p><a href="#parsing-arguments-2">Back</a></p>
+</blockquote>
+<p>The <code>?</code> operator <a href="https://doc.rust-lang.org/book/ch09-02-recoverable-errors-with-result.html#a-shortcut-for-propagating-errors-the--operator">(link)</a></p>
+<ul>
+<li>The function returns immediately if the <code>?</code> operator matches <code>Result::Err</code></li>
+</ul>
+<pre><code class="language-rs hljs"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">parse</span>(
+  <span class="hljs-keyword">mut</span> args: <span class="hljs-keyword">impl</span> <span class="hljs-title class_">Iterator</span>&lt;Item = <span class="hljs-type">String</span>&gt;,
+) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;Config, &amp;<span class="hljs-symbol">&#x27;static</span> <span class="hljs-type">str</span>&gt; {
+  args.<span class="hljs-title function_ invoke__">next</span>().<span class="hljs-title function_ invoke__">ok_or</span>(<span class="hljs-string">&quot;No argument&quot;</span>)?; <span class="hljs-comment">// Program name</span>
+  <span class="hljs-comment">// ...</span>
+}
+</code></pre>
+</div>
+<div class="slide" id="slide_13">
+<h1 id="search-the-string-1">
+  <a class="hljs" href="#search-the-string-1">Search the string (1)</a>
+</h1>
+<p>Consider that we want to search <code>He</code> in these lines:</p>
+<pre><code>Ok google
+Hey Bixby
+Hello Siri
+Hi Alexa
+</code></pre>
+<p>The green results will be displayed on the command lines:</p>
+<pre><code class="language-diff hljs"><span class="hljs-deletion">- Ok google</span>
+<span class="hljs-addition">+ Hey Bixby</span>
+<span class="hljs-addition">+ Hello Siri</span>
+<span class="hljs-deletion">- Hi Alexa</span>
+</code></pre>
+<p>We&#39;ve found all the lines containing <code>He</code> here.</p>
+<p>If the string is not found, the message should be like:</p>
+<pre><code class="language-sh hljs">Failed to run the program:
+Not found
+</code></pre>
+</div>
+<div class="slide" id="slide_14">
+<h1 id="search-the-string-2">
+  <a class="hljs" href="#search-the-string-2">Search the string (2)</a>
+</h1>
+<ul>
+<li>Convert all strings to lower case if <code>ignore_case</code> is true</li>
+<li><code>str::lines</code> returns an iterator over the lines of a string</li>
+</ul>
+<p><code>src/search.rs</code>:
+<pre><code class="language-rs hljs"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">search</span>&lt;<span class="hljs-symbol">&#x27;a</span>&gt;(
+  query: &amp;<span class="hljs-type">str</span>,
+  lines: &amp;<span class="hljs-symbol">&#x27;a</span> <span class="hljs-type">str</span>,
+  ignore_case: <span class="hljs-type">bool</span>,
+) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Vec</span>&lt;&amp;<span class="hljs-symbol">&#x27;a</span> <span class="hljs-type">str</span>&gt; {
+  <span class="hljs-keyword">let</span> <span class="hljs-keyword">mut </span><span class="hljs-variable">result</span> = <span class="hljs-type">Vec</span>::<span class="hljs-title function_ invoke__">new</span>();
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">query</span> = <span class="hljs-keyword">if</span> ignore_case {
+    query.<span class="hljs-title function_ invoke__">to_lowercase</span>()
+  } <span class="hljs-keyword">else</span> {
+    query.<span class="hljs-title function_ invoke__">to_string</span>()
+  };
+
+  <span class="hljs-keyword">for</span> <span class="hljs-variable">line</span> <span class="hljs-keyword">in</span> lines.<span class="hljs-title function_ invoke__">lines</span>() {
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">found</span> = <span class="hljs-keyword">if</span> ignore_case {
+      line.<span class="hljs-title function_ invoke__">to_lowercase</span>().<span class="hljs-title function_ invoke__">contains</span>(&amp;query)
+    } <span class="hljs-keyword">else</span> {
+      line.<span class="hljs-title function_ invoke__">contains</span>(&amp;query)
+    };
+    <span class="hljs-keyword">if</span> found {
+      result.<span class="hljs-title function_ invoke__">push</span>(line);
+    }
+  }
+  result
+}
+</code></pre>
+</p>
+</div>
+<div class="slide" id="slide_15">
+<h1 id="lets-recap-from-search-1">
+  <a class="hljs" href="#lets-recap-from-search-1">Let&#39;s recap from <code>search</code> (1)</a>
+</h1>
+<blockquote>
+<p><a href="#search-the-string-2">Back</a></p>
+</blockquote>
+<p><code>if</code> in <code>let</code> statement <a href="https://doc.rust-lang.org/reference/expressions/if-expr.html">(link)</a></p>
+<ul>
+<li>It works as ternary operator (<code>?:</code>) in Rust <em>(I like it)</em></li>
+</ul>
+<ol>
+<li><pre><code class="language-rs hljs"><span class="hljs-keyword">let</span> <span class="hljs-variable">query</span> = <span class="hljs-keyword">if</span> ignore_case {
+  query.<span class="hljs-title function_ invoke__">to_lowercase</span>()
+} <span class="hljs-keyword">else</span> {
+  query.<span class="hljs-title function_ invoke__">to_string</span>()
+};
+</code></pre>
+</li>
+<li><pre><code class="language-rs hljs"><span class="hljs-keyword">let</span> <span class="hljs-variable">found</span> = <span class="hljs-keyword">if</span> ignore_case {
+  line.<span class="hljs-title function_ invoke__">to_lowercase</span>().<span class="hljs-title function_ invoke__">contains</span>(&amp;query)
+} <span class="hljs-keyword">else</span> {
+  line.<span class="hljs-title function_ invoke__">contains</span>(&amp;query)
+};
+</code></pre>
+</li>
+</ol>
+</div>
+<div class="slide" id="slide_16">
+<h1 id="lets-recap-from-search-2">
+  <a class="hljs" href="#lets-recap-from-search-2">Let&#39;s recap from <code>search</code> (2)</a>
+</h1>
+<blockquote>
+<p><a href="#search-the-string-2">Back</a></p>
+</blockquote>
+<p>Lifetime annotation <a href="https://doc.rust-lang.org/book/ch10-03-lifetime-syntax.html#lifetime-annotations-in-function-signatures">(link)</a></p>
+<p><em>Wait, why do we need this?</em></p>
+<p>Consider all the <code>&#39;a</code> are removed:</p>
+<pre><code class="language-rs hljs"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">search</span>(
+  query: &amp;<span class="hljs-type">str</span>,
+  lines: &amp;<span class="hljs-type">str</span>,
+  ignore_case: <span class="hljs-type">bool</span>,
+) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Vec</span>&lt;&amp;<span class="hljs-type">str</span>&gt;
+</code></pre>
+<p>The compiler complains:</p>
+<pre><code class="language-rs hljs">    error[E0106]: missing lifetime specifier
+-<span class="hljs-punctuation">-&gt;</span> src/search.rs:<span class="hljs-number">5</span>:<span class="hljs-number">10</span>
+  |
+<span class="hljs-number">2</span> |   query: &amp;<span class="hljs-type">str</span>,
+  |          ----
+<span class="hljs-number">3</span> |   lines: &amp;<span class="hljs-type">str</span>,
+  |          ----
+<span class="hljs-number">4</span> |   ignore_case: <span class="hljs-type">bool</span>,
+<span class="hljs-number">5</span> | ) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Vec</span>&lt;&amp;<span class="hljs-type">str</span>&gt; {
+  |          ^ expected named lifetime parameter
+  |
+  = help: this function<span class="hljs-symbol">&#x27;s</span> <span class="hljs-keyword">return</span> <span class="hljs-keyword">type</span> <span class="hljs-title class_">contains</span> a borrowed value, but the signature does not say whether it is borrowed from `query` or `lines`
+help: consider introducing a named lifetime parameter
+</code></pre>
+</div>
+<div class="slide" id="slide_17">
+<h1 id="lets-recap-from-search-3">
+  <a class="hljs" href="#lets-recap-from-search-3">Let&#39;s recap from <code>search</code> (3)</a>
+</h1>
+<blockquote>
+<p><a href="#search-the-string-2">Back</a></p>
+</blockquote>
+<p>What does the compiler <a href="#lets-recap-from-search-2">mean</a>?</p>
+<p>Let&#39;s figure it out:</p>
+<ol>
+<li><code>search</code> borrows two strings: <code>query</code> and <code>lines</code></li>
+<li><code>search</code> returns some strings from <code>lines.lines()</code></li>
+</ol>
+<p>There&#39;s an ambiguity: <strong>&quot;who owns the returned strings?&quot;</strong></p>
+<p>The compiler suggests we add lifetime annotations like this:</p>
+<pre><code class="language-rs hljs"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">search</span>&lt;<span class="hljs-symbol">&#x27;a</span>&gt;(
+  query: &amp;<span class="hljs-symbol">&#x27;a</span> <span class="hljs-type">str</span>,
+  lines: &amp;<span class="hljs-symbol">&#x27;a</span> <span class="hljs-type">str</span>,
+  ignore_case: <span class="hljs-type">bool</span>,
+) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Vec</span>&lt;&amp;<span class="hljs-symbol">&#x27;a</span> <span class="hljs-type">str</span>&gt;
+</code></pre>
+<p>Actually, we don&#39;t need to specify the lifetime of <code>query</code>, because the result is regardless of <code>query</code>:</p>
+<pre><code class="language-diff hljs">pub fn search&lt;&#x27;a&gt;(
+<span class="hljs-deletion">-  query: &amp;&#x27;a str,</span>
+<span class="hljs-addition">+  query: &amp;str,</span>
+  lines: &amp;&#x27;a str,
+  ignore_case: bool,
+) -&gt; Vec&lt;&amp;&#x27;a str&gt;
+</code></pre>
+</div>
+<div class="slide" id="slide_18">
+<h1 id="display-all-the-lines-containing-it">
+  <a class="hljs" href="#display-all-the-lines-containing-it">Display all the lines containing it</a>
+</h1>
+<p><code>run</code> does also <a href="#search-the-string-2">search the string</a></p>
+<p><code>src/run.rs</code>:
+<pre><code class="language-rs hljs"><span class="hljs-keyword">use</span> crate::{
+  config::Config,
+  search::search,
+};
+<span class="hljs-keyword">use</span> std::{error::Error, fs, env};
+
+<span class="hljs-comment">// Returns the number of lines that containing `config.query_string`</span>
+<span class="hljs-comment">// If no line is found, returns Err(&quot;Not found&quot;)</span>
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">run</span>(config: &amp;Config) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;<span class="hljs-type">usize</span>, <span class="hljs-type">Box</span>&lt;<span class="hljs-keyword">dyn</span> Error&gt;&gt; {
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">query</span> = &amp;config.query_string;
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">lines</span>: <span class="hljs-type">String</span> = fs::<span class="hljs-title function_ invoke__">read_to_string</span>(&amp;config.file_path)?;
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">ignore_case</span>: <span class="hljs-type">bool</span> = env::<span class="hljs-title function_ invoke__">var</span>(<span class="hljs-string">&quot;IGNORE_CASE&quot;</span>)
+    .<span class="hljs-title function_ invoke__">and_then</span>(|ok| {
+      <span class="hljs-keyword">match</span> ok.<span class="hljs-title function_ invoke__">as_str</span>() {
+        <span class="hljs-string">&quot;0&quot;</span> =&gt; <span class="hljs-title function_ invoke__">Err</span>(env::VarError::NotPresent),
+        _ =&gt; <span class="hljs-title function_ invoke__">Ok</span>(ok),
+      }
+    })
+    .<span class="hljs-title function_ invoke__">is_ok</span>();
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">results</span>: <span class="hljs-type">Vec</span>&lt;&amp;<span class="hljs-type">str</span>&gt; = <span class="hljs-title function_ invoke__">search</span>(query, &amp;lines, ignore_case);
+  <span class="hljs-keyword">for</span> <span class="hljs-variable">result</span> <span class="hljs-keyword">in</span> &amp;results {
+    <span class="hljs-built_in">println!</span>(<span class="hljs-string">&quot;{}&quot;</span>, result);
+  }
+
+  <span class="hljs-keyword">match</span> results.<span class="hljs-title function_ invoke__">len</span>() {
+    <span class="hljs-number">0</span> =&gt; <span class="hljs-title function_ invoke__">Err</span>(<span class="hljs-string">&quot;Not found&quot;</span>.<span class="hljs-title function_ invoke__">into</span>()),
+    number_of_lines =&gt; <span class="hljs-title function_ invoke__">Ok</span>(number_of_lines),
+  }
+}</code></pre>
+</p>
+</div>
+<div class="slide" id="slide_19">
+<h1 id="lets-recap-from-run-1">
+  <a class="hljs" href="#lets-recap-from-run-1">Let&#39;s recap from <code>run</code> (1)</a>
+</h1>
+<blockquote>
+<p><a href="#display-all-the-lines-containing-it">Back</a></p>
+</blockquote>
+<p><code>use</code> brings codes of <code>crate</code> into the scope:</p>
+<pre><code class="language-rs hljs"><span class="hljs-keyword">use</span> crate::{
+  config::Config,
+  search::search,
+};
+</code></pre>
+<p><code>crate</code> refers to <a href="#project-layout-3"><code>src</code> level</a></p>
+</div>
+<div class="slide" id="slide_20">
+<h1 id="environment-variables">
+  <a class="hljs" href="#environment-variables">Environment variables</a>
+</h1>
+<h2 id="stdenvvarignore_case">
+  <a class="hljs" href="#stdenvvarignore_case"><code>std::env::var(&quot;IGNORE_CASE&quot;)</code></a>
+</h2>
+<ul>
+<li>reads the environment variable called <code>IGNORE_CASE</code></li>
+<li>returns <code>Result</code><ul>
+<li>if the variable is not present, return <code>Err(VarError::NotPresent)</code></li>
+<li>We make it returns <code>Err</code> if <code>IGNORE_CASE</code> is <code>&quot;0&quot;</code></li>
+</ul>
+</li>
+</ul>
+<pre><code class="language-rs hljs"><span class="hljs-comment">// Convert all strings to lower case if IGNORE_CASE presents</span>
+<span class="hljs-keyword">let</span> <span class="hljs-variable">ignore_case</span>: <span class="hljs-type">bool</span> = env::<span class="hljs-title function_ invoke__">var</span>(<span class="hljs-string">&quot;IGNORE_CASE&quot;</span>)
+  .<span class="hljs-title function_ invoke__">and_then</span>(|ok| {
+    <span class="hljs-keyword">match</span> ok.<span class="hljs-title function_ invoke__">as_str</span>() {
+      <span class="hljs-string">&quot;0&quot;</span> =&gt; <span class="hljs-title function_ invoke__">Err</span>(env::VarError::NotPresent),
+      _ =&gt; <span class="hljs-title function_ invoke__">Ok</span>(ok),
+    }
+  })
+  .<span class="hljs-title function_ invoke__">is_ok</span>();
+</code></pre>
+<p>Actually, I prefer use <code>--</code> to specify options like <code>--ignore-case</code></p>
+<p>To parse CLI arguments in that way, we can use some external crates like <a href="https://docs.rs/clap/latest/clap/"><code>clap</code></a></p>
+</div>
+<div class="slide" id="slide_21">
+<h1 id="trait-object">
+  <a class="hljs" href="#trait-object">Trait object</a>
+</h1>
+<p>Notice what does <a href="#display-all-the-lines-containing-it"><code>run</code></a> return:</p>
+<pre><code class="language-rs hljs"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">fn</span> <span class="hljs-title function_">run</span>(config: &amp;Config) <span class="hljs-punctuation">-&gt;</span> <span class="hljs-type">Result</span>&lt;<span class="hljs-type">usize</span>, <span class="hljs-type">Box</span>&lt;<span class="hljs-keyword">dyn</span> Error&gt;&gt;
+</code></pre>
+<p><code>Box&lt;dyn TraitName&gt;</code> is called trait object</p>
+<p><em>Wait again, why do we need this</em>?</p>
+<ul>
+<li><code>run</code> returns <code>Result&lt;usize, Err&gt;</code> where <code>Err</code> can be <code>std::io::Error</code> or <code>&amp;&#39;static str</code></li>
+<li>To fit in the result type, we make use of the pointer type <code>Box</code> and <code>Error</code> trait</li>
+</ul>
+<p>Trait object is one of <a href="https://doc.rust-lang.org/reference/dynamically-sized-types.html">dynamically sized types</a> in Rust, DST is just like abstract class and allocator in C++</p>
+</div>
+<div class="slide" id="slide_22">
+<h1 id="librs">
+  <a class="hljs" href="#librs"><code>lib.rs</code></a>
+</h1>
+<p>Bringing modules into the public scope:
+<pre><code class="language-rs hljs"><span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> config;
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> run;
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">mod</span> search;
+
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">use</span> config::Config;
+<span class="hljs-keyword">pub</span> <span class="hljs-keyword">use</span> run::run;
+</code></pre>
+</p>
+</div>
+<div class="slide" id="slide_23">
+<h1 id="unit-tests">
+  <a class="hljs" href="#unit-tests">Unit tests</a>
+</h1>
+<p>To make sure each unit of code works, we should write unit tests:</p>
+<ul>
+<li><code>Config::parse</code></li>
+<li><code>search</code></li>
+<li>use <code>cargo test --test unit_test</code> to run <code>unit_tests.rs</code> only:<pre><code class="language-rs hljs">running <span class="hljs-number">8</span> tests
+test config::parse::err ... ok
+test config::parse::ok ... ok
+test search::get_no_line ... ok
+test search::get_no_line_ignore_case ... ok
+test search::get_one_line ... ok
+test search::get_one_line_ignore_case ... ok
+test search::get_two_lines ... ok
+test search::get_two_lines_ignore_case ... ok
+
+test result: ok. <span class="hljs-number">8</span> passed; <span class="hljs-number">0</span> failed; <span class="hljs-number">0</span> ignored; <span class="hljs-number">0</span> measured; <span class="hljs-number">0</span> filtered out; finished <span class="hljs-keyword">in</span> <span class="hljs-number">0.00</span>s
+</code></pre>
+</li>
+</ul>
+<p><code>tests/unit_tests.rs</code>:
+<pre><code class="language-rs hljs"><span class="hljs-meta">#[cfg(test)]</span>
+<span class="hljs-keyword">mod</span> config {
+  <span class="hljs-keyword">mod</span> parse {
+    <span class="hljs-keyword">use</span> minigrep::Config;
+
+    <span class="hljs-meta">#[test]</span>
+    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">ok</span>() {
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = Config::<span class="hljs-title function_ invoke__">parse</span>([
+        <span class="hljs-string">&quot;&lt;program_name&gt;&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+        <span class="hljs-string">&quot;&lt;query_string&gt;&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+        <span class="hljs-string">&quot;&lt;file_path&gt;&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+      ].<span class="hljs-title function_ invoke__">into_iter</span>());
+      <span class="hljs-built_in">assert!</span>(config.<span class="hljs-title function_ invoke__">is_ok</span>());
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = config.<span class="hljs-title function_ invoke__">unwrap</span>();
+      <span class="hljs-built_in">assert_eq!</span>(config.query_string, <span class="hljs-string">&quot;&lt;query_string&gt;&quot;</span>);
+      <span class="hljs-built_in">assert_eq!</span>(config.file_path, <span class="hljs-string">&quot;&lt;file_path&gt;&quot;</span>);
+    }
+
+    <span class="hljs-meta">#[test]</span>
+    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">err</span>() {
+      <span class="hljs-built_in">assert!</span>(Config::<span class="hljs-title function_ invoke__">parse</span>([
+      ].<span class="hljs-title function_ invoke__">into_iter</span>()).<span class="hljs-title function_ invoke__">is_err</span>());
+
+      <span class="hljs-built_in">assert!</span>(Config::<span class="hljs-title function_ invoke__">parse</span>([
+        <span class="hljs-string">&quot;&lt;program_name&gt;&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+      ].<span class="hljs-title function_ invoke__">into_iter</span>()).<span class="hljs-title function_ invoke__">is_err</span>());
+
+      <span class="hljs-built_in">assert!</span>(Config::<span class="hljs-title function_ invoke__">parse</span>([
+        <span class="hljs-string">&quot;&lt;program_name&gt;&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+        <span class="hljs-string">&quot;&lt;query_string&gt;&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+      ].<span class="hljs-title function_ invoke__">into_iter</span>()).<span class="hljs-title function_ invoke__">is_err</span>());
+    }
+  }
+}
+
+<span class="hljs-meta">#[cfg(test)]</span>
+<span class="hljs-keyword">mod</span> search {
+  <span class="hljs-keyword">use</span> minigrep::search::search;
+
+  <span class="hljs-meta">#[test]</span>
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">get_no_line</span>() {
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">search</span>(
+<span class="hljs-string">&quot;okokok&quot;</span>, 
+<span class="hljs-string">&quot;\
+ok ok ok
+o k o k o k
+okokOK
+ok
+ok
+ok&quot;</span>,
+<span class="hljs-literal">false</span>);
+    <span class="hljs-built_in">assert!</span>(result.<span class="hljs-title function_ invoke__">is_empty</span>());
+  }
+
+  <span class="hljs-meta">#[test]</span>
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">get_one_line</span>() {
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">search</span>(
+<span class="hljs-string">&quot;ok okok&quot;</span>,
+<span class="hljs-string">&quot;\
+ok ok ok
+okok ok
+Ok OkOk
+ok ok okokok&quot;</span>,
+<span class="hljs-literal">false</span>);
+    <span class="hljs-built_in">assert_eq!</span>(result, <span class="hljs-built_in">vec!</span>[
+      <span class="hljs-string">&quot;ok ok okokok&quot;</span>
+    ]);
+  }
+
+  <span class="hljs-meta">#[test]</span>
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">get_two_lines</span>() {
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">search</span>(
+<span class="hljs-string">&quot;ok okok&quot;</span>,
+<span class="hljs-string">&quot;\
+ok ok ok
+kok okok
+ok oko
+k
+Ok OkOk
+ok ok okokok&quot;</span>,
+<span class="hljs-literal">false</span>);
+    <span class="hljs-built_in">assert_eq!</span>(result, <span class="hljs-built_in">vec!</span>[
+      <span class="hljs-string">&quot;kok okok&quot;</span>,
+      <span class="hljs-string">&quot;ok ok okokok&quot;</span>
+    ]);
+  }
+
+  <span class="hljs-meta">#[test]</span>
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">get_no_line_ignore_case</span>() {
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">search</span>(
+<span class="hljs-string">&quot;oKokOK&quot;</span>, 
+<span class="hljs-string">&quot;\
+ok ok ok
+o k o k o k
+okoko k
+ok
+ok
+ok&quot;</span>,
+<span class="hljs-literal">true</span>);
+    <span class="hljs-built_in">assert!</span>(result.<span class="hljs-title function_ invoke__">is_empty</span>());
+  }
+
+  <span class="hljs-meta">#[test]</span>
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">get_one_line_ignore_case</span>() {
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">search</span>(
+<span class="hljs-string">&quot;oK okOk&quot;</span>,
+<span class="hljs-string">&quot;\
+ok ok ok
+oKok ok
+okok
+ok OK OkokOk&quot;</span>,
+<span class="hljs-literal">true</span>);
+    <span class="hljs-built_in">assert_eq!</span>(result, <span class="hljs-built_in">vec!</span>[
+      <span class="hljs-string">&quot;ok OK OkokOk&quot;</span>
+    ]);
+  }
+
+  <span class="hljs-meta">#[test]</span>
+  <span class="hljs-keyword">fn</span> <span class="hljs-title function_">get_two_lines_ignore_case</span>() {
+    <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">search</span>(
+<span class="hljs-string">&quot;ok OkoK&quot;</span>,
+<span class="hljs-string">&quot;\
+ok ok ok
+kOK oKOk
+ok oko
+k
+ok
+okok
+OK OK OkOkOk&quot;</span>,
+<span class="hljs-literal">true</span>);
+    <span class="hljs-built_in">assert_eq!</span>(result, <span class="hljs-built_in">vec!</span>[
+      <span class="hljs-string">&quot;kOK oKOk&quot;</span>,
+      <span class="hljs-string">&quot;OK OK OkOkOk&quot;</span>
+    ]);
+  }
+}</code></pre>
+</p>
+</div>
+<div class="slide" id="slide_24">
+<h1 id="integration-tests">
+  <a class="hljs" href="#integration-tests">Integration tests</a>
+</h1>
+<p>Units of code that work correctly on their own could have problems when integrated</p>
+<ul>
+<li>use <code>cargo test -- --show-output</code> to see displayed messages</li>
+</ul>
+<p><code>tests/int_tests_1.rs</code>:
+<pre><code class="language-rs hljs"><span class="hljs-meta">#[cfg(test)]</span>
+<span class="hljs-keyword">mod</span> config {
+  <span class="hljs-keyword">mod</span> run {
+    <span class="hljs-keyword">use</span> std::env;
+    <span class="hljs-keyword">use</span> minigrep::*;
+
+    <span class="hljs-meta">#[test]</span>
+    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">search_vector_in_rust_book_ch12_04</span>() {
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = Config::<span class="hljs-title function_ invoke__">parse</span>([
+        <span class="hljs-string">&quot;&lt;program_name&gt;&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+        <span class="hljs-string">&quot;vector&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+        <span class="hljs-string">&quot;./tests/assets/rust_book_ch12_04.txt&quot;</span>.<span class="hljs-title function_ invoke__">into</span>()
+      ].<span class="hljs-title function_ invoke__">into_iter</span>());
+      <span class="hljs-built_in">assert!</span>(config.<span class="hljs-title function_ invoke__">is_ok</span>());
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = config.<span class="hljs-title function_ invoke__">unwrap</span>();
+
+      env::<span class="hljs-title function_ invoke__">set_var</span>(<span class="hljs-string">&quot;IGNORE_CASE&quot;</span>, <span class="hljs-string">&quot;0&quot;</span>);
+
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">run</span>(&amp;config);
+      <span class="hljs-built_in">assert!</span>(result.<span class="hljs-title function_ invoke__">is_ok</span>());
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = result.<span class="hljs-title function_ invoke__">unwrap</span>();
+      <span class="hljs-built_in">assert_eq!</span>(result, <span class="hljs-number">7</span>);
+    }
+
+    <span class="hljs-meta">#[test]</span>
+    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">search_error_in_rust_book_ch12_04</span>() {
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = Config::<span class="hljs-title function_ invoke__">parse</span>([
+        <span class="hljs-string">&quot;&lt;program_name&gt;&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+        <span class="hljs-string">&quot;error&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+        <span class="hljs-string">&quot;./tests/assets/rust_book_ch12_04.txt&quot;</span>.<span class="hljs-title function_ invoke__">into</span>()
+      ].<span class="hljs-title function_ invoke__">into_iter</span>());
+      <span class="hljs-built_in">assert!</span>(config.<span class="hljs-title function_ invoke__">is_ok</span>());
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = config.<span class="hljs-title function_ invoke__">unwrap</span>();
+
+      env::<span class="hljs-title function_ invoke__">set_var</span>(<span class="hljs-string">&quot;IGNORE_CASE&quot;</span>, <span class="hljs-string">&quot;0&quot;</span>);
+
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">run</span>(&amp;config);
+      <span class="hljs-built_in">assert!</span>(result.<span class="hljs-title function_ invoke__">is_ok</span>());
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = result.<span class="hljs-title function_ invoke__">unwrap</span>();
+      <span class="hljs-built_in">assert_eq!</span>(result, <span class="hljs-number">13</span>);
+    }
+  }
+}
+</code></pre>
+</p>
+<p><code>tests/int_tests_2.rs</code>:
+<pre><code class="language-rs hljs"><span class="hljs-comment">// Environment variables are not thread-safe.</span>
+<span class="hljs-comment">// To eliminate side effects, integration tests that depends on</span>
+<span class="hljs-comment">// different values of a environment variable are isolated.</span>
+
+<span class="hljs-meta">#[cfg(test)]</span>
+<span class="hljs-keyword">mod</span> config {
+  <span class="hljs-keyword">mod</span> run {
+    <span class="hljs-keyword">use</span> std::env;
+    <span class="hljs-keyword">use</span> minigrep::*;
+
+    <span class="hljs-meta">#[test]</span>
+    <span class="hljs-keyword">fn</span> <span class="hljs-title function_">search_error_ignore_case_in_rust_book_ch12_04</span>() {
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = Config::<span class="hljs-title function_ invoke__">parse</span>([
+        <span class="hljs-string">&quot;&lt;program_name&gt;&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+        <span class="hljs-string">&quot;eRRor&quot;</span>.<span class="hljs-title function_ invoke__">into</span>(),
+        <span class="hljs-string">&quot;./tests/assets/rust_book_ch12_04.txt&quot;</span>.<span class="hljs-title function_ invoke__">into</span>()
+      ].<span class="hljs-title function_ invoke__">into_iter</span>());
+      <span class="hljs-built_in">assert!</span>(config.<span class="hljs-title function_ invoke__">is_ok</span>());
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = config.<span class="hljs-title function_ invoke__">unwrap</span>();
+
+      env::<span class="hljs-title function_ invoke__">set_var</span>(<span class="hljs-string">&quot;IGNORE_CASE&quot;</span>, <span class="hljs-string">&quot;1&quot;</span>);
+      <span class="hljs-built_in">assert!</span>(env::<span class="hljs-title function_ invoke__">var</span>(<span class="hljs-string">&quot;IGNORE_CASE&quot;</span>).<span class="hljs-title function_ invoke__">is_ok</span>());
+
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = <span class="hljs-title function_ invoke__">run</span>(&amp;config);
+      <span class="hljs-built_in">assert!</span>(result.<span class="hljs-title function_ invoke__">is_ok</span>());
+      <span class="hljs-keyword">let</span> <span class="hljs-variable">result</span> = result.<span class="hljs-title function_ invoke__">unwrap</span>();
+      <span class="hljs-built_in">assert_eq!</span>(result, <span class="hljs-number">19</span>);
+    }
+  }
+}</code></pre>
+</p>
+</div>
+<div class="slide" id="slide_25">
+<h1 id="mainrs">
+  <a class="hljs" href="#mainrs"><code>main.rs</code></a>
+</h1>
+<p>The entry point of CLI executable</p>
+<ul>
+<li><code>use minigrep::*</code>: minigrep refers to <code>lib.rs</code></li>
+<li>Do all the tasks:<ul>
+<li><a href="#parsing-arguments-2">parse arguments</a></li>
+<li><a href="#search-the-string-2">search the string</a></li>
+<li><a href="#display-all-the-lines-containing-it">display all the lines containing it</a></li>
+</ul>
+</li>
+<li>Reasonable error handling:<ul>
+<li>If <code>Result::Err</code> received, display the message and exit with non-zero code</li>
+<li><code>eprintln!(fmt, ...)</code> display messages on <code>stderr</code>. Remove the <code>e</code> if you want display on <code>stdout</code></li>
+</ul>
+</li>
+</ul>
+<p><pre><code class="language-rs hljs"><span class="hljs-keyword">use</span> std::{env, process};
+<span class="hljs-keyword">use</span> minigrep::*;
+
+<span class="hljs-keyword">fn</span> <span class="hljs-title function_">main</span>() {
+  <span class="hljs-keyword">let</span> <span class="hljs-variable">config</span> = Config::<span class="hljs-title function_ invoke__">parse</span>(env::<span class="hljs-title function_ invoke__">args</span>())
+    .<span class="hljs-title function_ invoke__">unwrap_or_else</span>(|err| {
+      eprintln!(<span class="hljs-string">&quot;Failed to parse configurations:&quot;</span>);
+      eprintln!(<span class="hljs-string">&quot;{}&quot;</span>, err);
+      process::<span class="hljs-title function_ invoke__">exit</span>(<span class="hljs-number">1</span>);
+    });
+  <span class="hljs-title function_ invoke__">run</span>(&amp;config).<span class="hljs-title function_ invoke__">unwrap_or_else</span>(|err| {
+    eprintln!(<span class="hljs-string">&quot;Failed to run the program:&quot;</span>);
+    eprintln!(<span class="hljs-string">&quot;{}&quot;</span>, err);
+    process::<span class="hljs-title function_ invoke__">exit</span>(<span class="hljs-number">1</span>);
+  });
+}
+</code></pre>
+</p>
+</div>
+<div class="slide" id="slide_26">
+<h1 id="commands">
+  <a class="hljs" href="#commands">Commands</a>
+</h1>
+<ul>
+<li><code>cargo build</code></li>
+<li><code>cargo test</code></li>
+<li><code>cargo run -- &lt;query_string&gt; &lt;file_path&gt;</code></li>
+<li>environment variables:<ul>
+<li><code>IGNORE_CASE</code>: whether to ignore case when searching for the string</li>
+</ul>
+</li>
+</ul>
+<p>Reference to <a href="https://doc.rust-lang.org/book/ch11-01-writing-tests.html#testing-equality-with-the-assert_eq-and-assert_ne-macros">testing with cargo</a></p>
+</div>
+<div class="slide" id="slide_27">
+<h1 id="thanks-for-watching">
+  <a class="hljs" href="#thanks-for-watching">Thanks for watching!</a>
+</h1>
+<p>The URL of GitHub Repository is <a href="https://github.com/AsherJingkongChen/minigrep.git">here</a></p>
+</div>
+</div></body>
+</html>

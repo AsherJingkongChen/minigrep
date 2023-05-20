@@ -1,5 +1,5 @@
 pub fn search<'a>(
-  query: &'a str,
+  query: &str,
   lines: &'a str,
   ignore_case: bool,
 ) -> Vec<&'a str> {
@@ -9,6 +9,7 @@ pub fn search<'a>(
   } else {
     query.to_string()
   };
+
   for line in lines.lines() {
     let found = if ignore_case {
       line.to_lowercase().contains(&query)
